@@ -26,6 +26,7 @@ import org.springframework.ai.rag.preretrieval.query.expansion.QueryExpander;
 import org.springframework.ai.rag.preretrieval.query.transformation.QueryTransformer;
 import org.springframework.ai.rag.preretrieval.query.transformation.RewriteQueryTransformer;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,11 +36,12 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
+@EnableConfigurationProperties(WebSearchProperties.class)
 public class WebSearchConfiguration {
 
 	@Bean
 	public QueryTransformer queryTransformer(
-			@Qualifier("dashscopeChatModel") ChatModel chatModel,
+			@Qualifier("dashScopeChatModel") ChatModel chatModel,
 			@Qualifier("transformerPromptTemplate") PromptTemplate transformerPromptTemplate
 	) {
 
@@ -59,7 +61,7 @@ public class WebSearchConfiguration {
 
 	@Bean
 	public QueryExpander queryExpander(
-			@Qualifier("dashscopeChatModel") ChatModel chatModel
+			@Qualifier("dashScopeChatModel") ChatModel chatModel
 	) {
 
 		ChatClient chatClient = ChatClient.builder(chatModel)
